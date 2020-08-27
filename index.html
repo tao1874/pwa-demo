@@ -1,0 +1,151 @@
+<!--
+Copyright 2018 Google Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta charset="utf-8">
+  <title>Space Missions</title>
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="manifest" href="manifest.json">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Space Missions">
+  <meta name="apple-mobile-web-app-title" content="Space Missions">
+  <meta name="theme-color" content="#FF9800">
+  <meta name="msapplication-navbutton-color" content="#FF9800">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-starturl" content="/index.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="icon" sizes="128x128" href="/images/touch/icon-128x128.png">
+  <link rel="apple-touch-icon" sizes="128x128" href="/images/touch/icon-128x128.png">
+  <link rel="icon" sizes="192x192" href="icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/images/touch/icon-192x192.png">
+  <link rel="icon" sizes="256x256" href="/images/touch/icon-256x256.png">
+  <link rel="apple-touch-icon" sizes="256x256" href="/images/touch/icon-256x256.png">
+  <link rel="icon" sizes="384x384" href="/images/touch/icon-384x384.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/images/touch/icon-384x384.png">
+  <link rel="icon" sizes="512x512" href="/images/touch/icon-512x512.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="/images/touch/icon-512x512.png">
+</head>
+
+<body>
+  <header>
+    <h1>Space Missions</h1>
+  </header>
+  <main>
+    <section class="card">
+      <div class="img-container">
+        <!-- CC0 image from https://unsplash.com/photos/NuE8Nu3otjo -->
+        <img src="images/space1.jpg" alt="The earth as caputured from space, illumnitated by cosmic radiation">
+      </div>
+      <p>
+        Bavarian bergkase port-salut ricotta. Cheese on toast say cheese cheese
+        strings pecorino fromage frais roquefort danish fontina emmental.
+        Bishop everyone loves jarlsberg stilton swiss cauliflower cheese fondue
+        wiss. Cottage cheese lancashire taleggio goat parmesan.
+      </p>
+    </section>
+    <section class="card">
+      <div class="img-container">
+        <!--CC0 image from https://unsplash.com/photos/cIX5TlQ_FgM -->
+        <img src="images/space2.jpg" alt="Looking through the inside of space equipment">
+      </div>
+      <p>
+        Bavarian bergkase port-salut ricotta. Cheese on toast say cheese cheese
+        strings pecorino fromage frais roquefort danish fontina emmental.
+        Bishop everyone loves jarlsberg stilton swiss cauliflower cheese fondue
+        wiss. Cottage cheese lancashire taleggio goat parmesan.
+      </p>
+    </section>
+    <section class="card">
+      <div class="img-container">
+        <!-- CC0 image from https://unsplash.com/photos/n463SoeSiVY -->
+        <img src="images/space3.jpg" alt="A spacecraft launches into the night sky">
+      </div>
+      <p>
+        Bavarian bergkase port-salut ricotta. Cheese on toast say cheese cheese
+        strings pecorino fromage frais roquefort danish fontina emmental.
+        Bishop everyone loves jarlsberg stilton swiss cauliflower cheese fondue
+        wiss. Cottage cheese lancashire taleggio goat parmesan.
+      </p>
+    </section>
+  </main>
+  <section id="installBanner" class="banner">
+    <button id="installBtn">Install app</button>
+</section>
+
+  <footer>
+    <ul class="flex-list">
+      <li><a href="#home">home</a></li>
+      <li><a href="#share">share</a></li>
+      <li><a href="#contact">contact</a></li>
+      <li><a href="#about">about</a></li>
+    </ul>
+  </footer>
+
+  <!-- TODO Register the service worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(reg => {
+            console.log('Service worker registered! 😎', reg);
+          })
+          .catch(err => {
+            console.log('😥 Service worker registration failed: ', err);
+          });
+      });
+    }
+  </script>
+<script>
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', event => {
+
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    event.preventDefault();
+
+    // Stash the event so it can be triggered later.
+    deferredPrompt = event;
+
+    // Attach the install prompt to a user gesture
+    document.querySelector('#installBtn').addEventListener('click', event => {
+
+      // Show the prompt
+      deferredPrompt.prompt();
+
+      // Wait for the user to respond to the prompt
+      deferredPrompt.userChoice
+        .then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the A2HS prompt');
+          } else {
+            console.log('User dismissed the A2HS prompt');
+          }
+          deferredPrompt = null;
+        });
+    });
+
+    // Update UI notify the user they can add to home screen
+    document.querySelector('#installBanner').style.display = 'flex';
+  });
+</script>
+</body>
+
+</html>
