@@ -1,6 +1,6 @@
 const cacheName = 'cache-v1';
 const precacheResources = [
-    '/',
+    '/pwa-demo/',
     'index.html',
     'styles/main.css',
     'images/space1.jpg',
