@@ -3,7 +3,7 @@
   "short_name": "Space Missions",
   "lang": "en-US",
   "start_url": "/pwa-demo/index.html",
-  "display": "standalone",
+  "display": "fullscreen",
   "theme_color": "#FF9800",
   "background_color": "#FF9800",
   "icons": [

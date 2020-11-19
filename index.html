@@ -119,7 +119,7 @@ limitations under the License.
   window.addEventListener('beforeinstallprompt', event => {
 
     // Prevent Chrome 67 and earlier from automatically showing the prompt
-    event.preventDefault();
+    // event.preventDefault();
 
     // Stash the event so it can be triggered later.
     deferredPrompt = event;
